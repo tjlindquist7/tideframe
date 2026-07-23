@@ -1,0 +1,78 @@
+{
+  "spot": "Beach Haven, NJ",
+  "updatedAt": "6:00 AM",
+  "currentTime": "10:32 PM",
+  "condition": {
+    "label": "Fair to Good",
+    "height": "2-3",
+    "unit": "ft",
+    "period": "8s",
+    "direction": "SSE",
+    "rating": 3
+  },
+  "swell": [
+    { "type": "Primary", "height": "2.5 ft", "period": "8s", "direction": "SSE", "angle": "157°" },
+    { "type": "Secondary", "height": "1.2 ft", "period": "11s", "direction": "ESE", "angle": "112°" }
+  ],
+  "wind": {
+    "speed": 12,
+    "unit": "mph",
+    "direction": "WNW",
+    "gusts": 16,
+    "status": "Offshore",
+    "airTemp": 72,
+    "realFeel": 80,
+    "nextHours": [12, 13, 13, 11, 14, 15, 15],
+    "hourlyDirections": ["WNW", "WNW", "NW", "NW", "NNW", "NNW", "N"],
+    "hourlyForecast": [
+      { "time": "10 AM", "speed": 12, "direction": "WNW", "temp": 72, "realFeel": 80, "condition": "sunny" },
+      { "time": "12 PM", "speed": 13, "direction": "NW", "temp": 74, "realFeel": 81, "condition": "partly" },
+      { "time": "2 PM", "speed": 14, "direction": "NNW", "temp": 72, "realFeel": 78, "condition": "cloudy" },
+      { "time": "4 PM", "speed": 15, "direction": "N", "temp": 70, "realFeel": 76, "condition": "rain" }
+    ]
+  },
+  "waterTemp": {
+    "value": 68,
+    "unit": "F",
+    "status": "Comfortable",
+    "bestWindow": "7-9 AM"
+  },
+  "tide": {
+    "status": "Rising",
+    "high": "7:42 AM",
+    "low": "1:58 PM"
+  },
+  "trendGraphs": {
+    "times": ["6 AM", "9 AM", "12 PM", "3 PM", "6 PM"],
+    "waveHeight": [2.3, 2.1, 1.9, 2.0, 2.2],
+    "windSpeed": [10, 12, 14, 15, 13],
+    "windDirection": ["WNW", "WNW", "NNW", "N", "NE"]
+  },
+  "surfOutlook": [
+    {
+      "day": "Today",
+      "height": "2-3ft",
+      "am": { "height": "2 ft", "wind": "8", "direction": "NW", "rating": "good" },
+      "pm": { "height": "3 ft", "wind": "11", "direction": "NNE", "rating": "good" }
+    },
+    {
+      "day": "Tomorrow",
+      "height": "2-3ft",
+      "am": { "height": "2 ft", "wind": "10", "direction": "NW", "rating": "fair" },
+      "pm": { "height": "2 ft", "wind": "13", "direction": "NE", "rating": "fair" }
+    },
+    {
+      "day": "Thu, 6/25",
+      "height": "1-2ft",
+      "am": { "height": "1 ft", "wind": "14", "direction": "ESE", "rating": "fair" },
+      "pm": { "height": "2 ft", "wind": "16", "direction": "SE", "rating": "poor" }
+    },
+    {
+      "day": "Fri, 6/26",
+      "height": "1-2ft",
+      "am": { "height": "1 ft", "wind": "9", "direction": "NE", "rating": "good" },
+      "pm": { "height": "2 ft", "wind": "8", "direction": "NW", "rating": "good" }
+    }
+  ],
+  "bestWindow": "7-9 AM"
+}
