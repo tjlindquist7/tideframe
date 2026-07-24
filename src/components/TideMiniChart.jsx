@@ -190,7 +190,7 @@ export const TideMiniChart = ({ tide }) => {
           style={{ touchAction: "manipulation" }}
           className="block w-full cursor-pointer rounded-[16px] bg-[#F7F9FC] px-3 py-0 text-left transition active:scale-[0.99]"
         >
-          <TideChartSvg {...chartProps} className="h-[110px] w-full overflow-visible" />
+          <TideChartSvg {...chartProps} className="pointer-events-none h-[110px] w-full overflow-visible" />
         </button>
       </div>
 
