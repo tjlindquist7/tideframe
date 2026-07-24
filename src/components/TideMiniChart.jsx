@@ -98,6 +98,7 @@ const TideChartSvg = ({ areaPath, linePath, nowX, visibleExtremes, chartCurve, m
 
 export const TideMiniChart = ({ tide }) => {
   const [isFullscreen, setIsFullscreen] = React.useState(false);
+  const openFullscreen = React.useCallback(() => setIsFullscreen(true), []);
   const now = new Date();
   const extremes = Array.isArray(tide.extremes) ? tide.extremes : [];
   const nextExtremes = extremes
@@ -183,9 +184,11 @@ export const TideMiniChart = ({ tide }) => {
       <div className="mt-5">
         <button
           type="button"
-          onClick={() => setIsFullscreen(true)}
+          onClick={openFullscreen}
+          onPointerUp={openFullscreen}
           aria-label="Open tide chart full screen"
-          className="block w-full rounded-[16px] bg-[#F7F9FC] px-3 py-0 text-left transition active:scale-[0.99]"
+          style={{ touchAction: "manipulation" }}
+          className="block w-full cursor-pointer rounded-[16px] bg-[#F7F9FC] px-3 py-0 text-left transition active:scale-[0.99]"
         >
           <TideChartSvg {...chartProps} className="h-[110px] w-full overflow-visible" />
         </button>
