@@ -25,19 +25,22 @@ export const WeatherSummaryCard = ({ forecast, sun, isReady = true }) => (
     <div className="mt-4 grid grid-cols-4 gap-3">
       {(isReady ? forecast : [{ time: "Now" }, { time: "+2 hr" }, { time: "+4 hr" }, { time: "+6 hr" }]).map((hour) => (
         !isReady ? <LoadingTile key={hour.time} label={hour.time} /> :
-        <div key={hour.time} className="flex h-[206px] flex-col items-center rounded-[16px] bg-[#F7F9FC] px-4 pb-4 pt-5 text-center">
+        <div key={hour.time} className="flex h-[206px] flex-col items-center rounded-[16px] bg-[#F7F9FC] px-4 pb-3 pt-3 text-center">
           <div className="text-[12px] font-black uppercase tracking-[0.14em] text-[#68758F]">{hour.time}</div>
-          <div className="mt-4 grid h-12 w-12 place-items-center rounded-full border border-[#E2E8F0] bg-white shadow-sm">
+          <div className="mt-2 grid h-10 w-10 place-items-center rounded-full border border-[#E2E8F0] bg-white shadow-sm">
             <WeatherIcon condition={hour.condition} />
           </div>
-          <div className="mt-auto text-[38px] font-black leading-none tracking-[-0.055em] text-[#101828]">{hour.temp}&deg;</div>
-          <div className="mt-2 text-xs font-black uppercase tracking-[0.14em] text-[#A48931]">Feels {hour.realFeel}&deg;</div>
+          <div className="mt-2 text-[35px] font-black leading-none tracking-[-0.055em] text-[#101828]">{hour.temp}&deg;</div>
+          <div className="mt-1 text-xs font-black uppercase tracking-[0.14em] text-[#A48931]">Feels {hour.realFeel}&deg;</div>
           <div className="mt-2 flex items-start justify-center gap-2 leading-none text-[#101828]">
             <div>
               <div className="text-[18px] font-black tracking-[-0.04em]">{hour.speed}</div>
               <div className="mt-0.5 text-[8px] font-bold">mph</div>
             </div>
             <div className="pt-1.5 text-[13px] font-black uppercase tracking-[0.12em]">{hour.direction}</div>
+          </div>
+          <div className="mt-1.5 text-[11px] font-black uppercase tracking-[0.13em] text-[#8A94A6]">
+            UV <span className="text-[#101828]">{Number.isFinite(Number(hour.uv)) ? hour.uv : "--"}</span>
           </div>
         </div>
       ))}

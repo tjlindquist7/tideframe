@@ -5,7 +5,7 @@ const BEACH_HAVEN = {
 };
 
 const NOAA_TIDE_STATION = "8534720";
-const CACHE_KEY = "tideframe.liveConditions.v12";
+const CACHE_KEY = "tideframe.liveConditions.v14";
 const WINDOW_NAME_PREFIX = `${CACHE_KEY}:`;
 export const LIVE_CONDITIONS_CACHE_MS = 60 * 60 * 1000;
 
@@ -28,6 +28,20 @@ const compactHour = (value) =>
   })
     .format(new Date(value))
     .replace(" ", " ");
+
+const formatTideDay = (value, today = new Date()) => {
+  const date = new Date(value);
+  const tomorrow = new Date(today);
+  tomorrow.setDate(today.getDate() + 1);
+
+  if (formatBeachDate(date) === formatBeachDate(today)) return "Today";
+  if (formatBeachDate(date) === formatBeachDate(tomorrow)) return "Tomorrow";
+
+  return new Intl.DateTimeFormat("en-US", {
+    weekday: "long",
+    timeZone: BEACH_HAVEN.timezone,
+  }).format(date);
+};
 
 const round = (value) => Math.round(Number(value));
 
@@ -232,7 +246,7 @@ const apiUrl = () => {
     wind_speed_unit: "mph",
     forecast_days: "4",
     current: "temperature_2m,apparent_temperature,weather_code,wind_speed_10m,wind_direction_10m,wind_gusts_10m",
-    hourly: "temperature_2m,apparent_temperature,weather_code,wind_speed_10m,wind_direction_10m,wind_gusts_10m",
+    hourly: "temperature_2m,apparent_temperature,weather_code,wind_speed_10m,wind_direction_10m,wind_gusts_10m,uv_index",
   });
 
   return `https://api.open-meteo.com/v1/forecast?${params.toString()}`;
@@ -267,12 +281,12 @@ const marineUrl = () => {
 
 const tideUrl = () => {
   const now = new Date();
-  const dayAfterTomorrow = new Date(now);
-  dayAfterTomorrow.setDate(now.getDate() + 2);
+  const threeDaysOut = new Date(now);
+  threeDaysOut.setDate(now.getDate() + 3);
 
   const params = new URLSearchParams({
     begin_date: formatBeachDate(now),
-    end_date: formatBeachDate(dayAfterTomorrow),
+    end_date: formatBeachDate(threeDaysOut),
     station: NOAA_TIDE_STATION,
     product: "predictions",
     datum: "MLLW",
@@ -287,12 +301,12 @@ const tideUrl = () => {
 
 const tideCurveUrl = () => {
   const now = new Date();
-  const dayAfterTomorrow = new Date(now);
-  dayAfterTomorrow.setDate(now.getDate() + 2);
+  const threeDaysOut = new Date(now);
+  threeDaysOut.setDate(now.getDate() + 3);
 
   const params = new URLSearchParams({
     begin_date: formatBeachDate(now),
-    end_date: formatBeachDate(dayAfterTomorrow),
+    end_date: formatBeachDate(threeDaysOut),
     station: NOAA_TIDE_STATION,
     product: "predictions",
     datum: "MLLW",
@@ -335,6 +349,7 @@ const pickHourlyForecast = (hourly, currentTime) => {
       temp: round(hourly.temperature_2m[index]),
       realFeel: round(hourly.apparent_temperature[index]),
       condition: conditionFromCode(hourly.weather_code[index]),
+      uv: Number.isFinite(Number(hourly.uv_index?.[index])) ? Math.round(Number(hourly.uv_index[index])) : null,
     };
   });
 };
@@ -359,6 +374,7 @@ const pickNwsHourlyForecast = (periods, fallbackHourly, currentTime) => {
       temp: Number.isFinite(Number(period.temperature)) ? round(period.temperature) : fallback.temp,
       realFeel: fallback.realFeel,
       condition: conditionFromForecast(period.shortForecast) || fallback.condition,
+      uv: fallback.uv,
     };
   });
 };
@@ -618,6 +634,24 @@ const tideFromPredictions = (fallback, tideData, tideCurveData) => {
     label: prediction.type === "H" ? "High" : "Low",
     displayTime: formatClock(prediction.time),
   }));
+  const dailyExtremes = upcoming.reduce((days, prediction) => {
+    const dateKey = formatBeachDate(prediction.time);
+    let day = days.find((item) => item.dateKey === dateKey);
+    if (!day) {
+      day = {
+        dateKey,
+        day: formatTideDay(prediction.time, now),
+        highs: [],
+        lows: [],
+      };
+      days.push(day);
+    }
+
+    if (prediction.type === "H") day.highs.push(formatClock(prediction.time));
+    if (prediction.type === "L") day.lows.push(formatClock(prediction.time));
+
+    return days;
+  }, []).slice(0, 3).map(({ dateKey, ...day }) => day);
 
   return {
     ...fallback.tide,
@@ -625,6 +659,7 @@ const tideFromPredictions = (fallback, tideData, tideCurveData) => {
     ...(lowTimes.length ? { low: lowTimes[0], lowTimes } : {}),
     ...(curve?.length ? { curve } : {}),
     ...(extremes.length ? { extremes } : {}),
+    ...(dailyExtremes.length ? { dailyExtremes } : {}),
   };
 };
 

@@ -25,10 +25,10 @@
     "nextHours": [12, 13, 13, 11, 14, 15, 15],
     "hourlyDirections": ["WNW", "WNW", "NW", "NW", "NNW", "NNW", "N"],
     "hourlyForecast": [
-      { "time": "10 AM", "speed": 12, "direction": "WNW", "temp": 72, "realFeel": 80, "condition": "sunny" },
-      { "time": "12 PM", "speed": 13, "direction": "NW", "temp": 74, "realFeel": 81, "condition": "partly" },
-      { "time": "2 PM", "speed": 14, "direction": "NNW", "temp": 72, "realFeel": 78, "condition": "cloudy" },
-      { "time": "4 PM", "speed": 15, "direction": "N", "temp": 70, "realFeel": 76, "condition": "rain" }
+      { "time": "10 AM", "speed": 12, "direction": "WNW", "temp": 72, "realFeel": 80, "condition": "sunny", "uv": 5 },
+      { "time": "12 PM", "speed": 13, "direction": "NW", "temp": 74, "realFeel": 81, "condition": "partly", "uv": 7 },
+      { "time": "2 PM", "speed": 14, "direction": "NNW", "temp": 72, "realFeel": 78, "condition": "cloudy", "uv": 6 },
+      { "time": "4 PM", "speed": 15, "direction": "N", "temp": 70, "realFeel": 76, "condition": "rain", "uv": 3 }
     ]
   },
   "waterTemp": {
@@ -40,7 +40,12 @@
   "tide": {
     "status": "Rising",
     "high": "7:42 AM",
-    "low": "1:58 PM"
+    "low": "1:58 PM",
+    "dailyExtremes": [
+      { "day": "Today", "highs": ["7:42 AM", "8:06 PM"], "lows": ["1:58 PM"] },
+      { "day": "Tomorrow", "highs": ["8:31 AM", "8:55 PM"], "lows": ["2:18 AM", "2:44 PM"] },
+      { "day": "Friday", "highs": ["9:19 AM", "9:42 PM"], "lows": ["3:07 AM", "3:31 PM"] }
+    ]
   },
   "trendGraphs": {
     "times": ["6 AM", "9 AM", "12 PM", "3 PM", "6 PM"],

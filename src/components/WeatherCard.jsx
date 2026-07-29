@@ -14,18 +14,21 @@ export const WeatherCard = ({ wind }) => (
     <Label icon={Wind}>Weather</Label>
     <div className="mt-5 grid grid-cols-4 gap-4">
       {wind.hourlyForecast.map((hour) => (
-        <div key={hour.time} className="flex h-[245px] flex-col items-center justify-between rounded-[15px] bg-[#F7F9FC] px-4 py-4 text-center">
+        <div key={hour.time} className="flex h-[245px] flex-col items-center rounded-[15px] bg-[#F7F9FC] px-4 pb-3 pt-4 text-center">
           <div>
             <div className="text-[13px] font-black uppercase tracking-[0.12em] text-[#68758F]">{hour.time}</div>
-            <div className="mt-3 grid place-items-center">
+            <div className="mt-2 grid place-items-center">
               <WeatherIcon condition={hour.condition} />
             </div>
           </div>
-          <div className="space-y-3">
+          <div className="mt-3 space-y-2">
             <div>
               <div className="text-[9px] font-bold uppercase tracking-[0.16em] text-[#9AA5B8]">Wind</div>
               <div className="mt-1 text-lg font-black leading-none text-[#101828]">{hour.speed}<span className="ml-0.5 text-[9px] font-bold text-[#8A94A6]">mph</span></div>
               <div className="mt-1 text-[10px] font-black text-[#68758F]">{hour.direction}</div>
+              <div className="mt-1 text-[11px] font-black uppercase tracking-[0.12em] text-[#A48931]">
+                UV <span className="text-[#101828]">{Number.isFinite(Number(hour.uv)) ? hour.uv : "--"}</span>
+              </div>
             </div>
             <div>
               <div className="text-[9px] font-bold uppercase tracking-[0.16em] text-[#9AA5B8]">Temp</div>
