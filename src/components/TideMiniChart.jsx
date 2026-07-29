@@ -39,7 +39,7 @@ const pathFromPoints = (points) => {
 const tideTimesText = (times) => (Array.isArray(times) && times.length ? times.join("  /  ") : "--");
 
 const TideTimesTable = ({ days }) => (
-  <div className="w-full rounded-[16px] border border-[#E0E7F0] bg-white/85 px-6 py-5 shadow-[0_14px_34px_rgba(20,32,55,0.06)]">
+  <div className="mt-4 w-full rounded-[16px] border border-[#E0E7F0] bg-white/85 px-6 py-5 shadow-[0_14px_34px_rgba(20,32,55,0.06)]">
     <div className="grid grid-cols-[0.9fr_1.35fr_1.35fr] border-b border-[#E7EDF4] pb-3 text-[12px] font-black uppercase tracking-[0.18em] text-[#68758F]">
       <div>Day</div>
       <div>High Tide</div>
@@ -242,9 +242,9 @@ export const TideMiniChart = ({ tide }) => {
               </button>
             </div>
             <div className="mt-8 flex flex-1 flex-col rounded-[18px] bg-[#F7F9FC] px-10 pb-8 pt-5">
-              <div className="grid min-h-0 flex-1 place-items-center overflow-visible">
-                <div className="grid w-[calc(100%-68px)] justify-self-end place-items-center overflow-visible pt-[28px]">
-                  <TideChartSvg {...expandedChartProps} isExpanded className="h-[285px] w-full overflow-visible" />
+              <div className="grid min-h-0 flex-1 place-items-center overflow-visible pb-5">
+                <div className="grid w-[calc(100%-68px)] justify-self-end place-items-center overflow-visible pt-[20px]">
+                  <TideChartSvg {...expandedChartProps} isExpanded className="h-[260px] w-full overflow-visible" />
                 </div>
               </div>
               <TideTimesTable days={dailyExtremes} />
