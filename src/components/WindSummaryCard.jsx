@@ -4,7 +4,7 @@ import { Label } from "./Label";
 
 const compassNeedleRotation = (degrees) => (Number.isFinite(Number(degrees)) ? Number(degrees) - 45 : 0);
 const WINDY_EMBED_URL =
-  "https://embed.windy.com/embed2.html?lat=40.089&lon=-74.143&detailLat=40.089&detailLon=-74.143&width=1280&height=800&zoom=7&level=surface&overlay=wind&product=ecmwf&menu=&message=true&marker=true&calendar=now&pressure=true&type=map&location=coordinates&detail=true&metricWind=mph&metricTemp=%C2%B0F&radarRange=-1";
+  "https://embed.windy.com/embed2.html?lat=39.563&lon=-74.243&detailLat=39.563&detailLon=-74.243&width=1280&height=800&zoom=8&level=surface&overlay=wind&product=ecmwf&menu=&message=true&marker=true&calendar=now&pressure=true&type=map&location=coordinates&detail=true&metricWind=mph&metricTemp=%C2%B0F&radarRange=-1";
 
 export const WindSummaryCard = ({ wind, isReady = true }) => {
   const [isFullscreen, setIsFullscreen] = React.useState(false);
